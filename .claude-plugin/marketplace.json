@@ -1,0 +1,16 @@
+{
+  "name": "sdp",
+  "owner": {
+    "name": "SDP Platforms",
+    "email": "hello@sdp-platform.com"
+  },
+  "description": "Official SDP plugin marketplace. Website builder, products, listings, and custom forms for AI agents.",
+  "plugins": [
+    {
+      "name": "sdp",
+      "source": "./",
+      "description": "Build SDP websites and administer product, listing, and custom-order catalogs through hosted MCP.",
+      "category": "productivity"
+    }
+  ]
+}

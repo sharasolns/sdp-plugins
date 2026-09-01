@@ -1,0 +1,13 @@
+interface:
+  display_name: "SDP Custom Forms"
+  short_description: "Administer SDP custom order types"
+  default_prompt: "Use $sdp-custom-forms to list companies and inspect or create a custom order type."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "sdp-custom-forms"
+      description: "SDP Custom Forms hosted MCP server"
+      transport: "streamable_http"
+      url: "https://themes-production.sdp-platform.com/mcp/custom-forms"
+policy:
+  allow_implicit_invocation: true

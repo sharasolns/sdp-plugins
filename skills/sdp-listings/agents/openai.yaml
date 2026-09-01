@@ -1,0 +1,13 @@
+interface:
+  display_name: "SDP Listings"
+  short_description: "Administer SDP listing catalogs"
+  default_prompt: "Use $sdp-listings to list companies and create or update a listing with an image."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "sdp-listings"
+      description: "SDP Listings hosted MCP server"
+      transport: "streamable_http"
+      url: "https://themes-production.sdp-platform.com/mcp/listings"
+policy:
+  allow_implicit_invocation: true

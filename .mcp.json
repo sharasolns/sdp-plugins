@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "sdp-website-builder": {
+      "type": "http",
+      "url": "https://sdp-api.sdp-platform.com/mcp/website-builder"
+    },
+    "sdp-products": {
+      "type": "http",
+      "url": "https://themes-production.sdp-platform.com/mcp/products"
+    },
+    "sdp-listings": {
+      "type": "http",
+      "url": "https://themes-production.sdp-platform.com/mcp/listings"
+    },
+    "sdp-custom-forms": {
+      "type": "http",
+      "url": "https://themes-production.sdp-platform.com/mcp/custom-forms"
+    }
+  }
+}

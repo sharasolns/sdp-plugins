@@ -1,0 +1,13 @@
+interface:
+  display_name: "SDP Products"
+  short_description: "Administer SDP product catalogs"
+  default_prompt: "Use $sdp-products to list companies and create or update a product with an image."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "sdp-products"
+      description: "SDP Products hosted MCP server"
+      transport: "streamable_http"
+      url: "https://themes-production.sdp-platform.com/mcp/products"
+policy:
+  allow_implicit_invocation: true

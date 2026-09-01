@@ -1,0 +1,35 @@
+{
+  "name": "sdp",
+  "version": "0.1.0",
+  "description": "SDP plugin for AI assistants. Build websites and administer product, listing, and custom-order catalogs through hosted MCP.",
+  "author": {
+    "name": "SDP Platforms",
+    "email": "hello@sdp-platform.com",
+    "url": "https://sdp-platform.com"
+  },
+  "homepage": "https://sdp-platform.com",
+  "repository": "https://github.com/sdp-platforms/sdp-plugins",
+  "license": "MIT",
+  "keywords": ["sdp", "website-builder", "mcp", "ecommerce", "listings"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "SDP",
+    "shortDescription": "Website builder and catalogs for SDP",
+    "longDescription": "Connect an SDP account to build websites with Latte components and administer products, listings, and custom-order types through hosted MCP. Authenticate with OAuth. Never invent catalog ids or type slugs.",
+    "developerName": "SDP Platforms",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://sdp-platform.com",
+    "privacyPolicyURL": "https://sdp-platform.com/privacy",
+    "termsOfServiceURL": "https://sdp-platform.com/terms",
+    "defaultPrompt": [
+      "List my SDP websites and describe the current theme framework.",
+      "Create a draft listings page that uses {sdpGetListings}.",
+      "Add a product with a public image URL through Products MCP."
+    ],
+    "brandColor": "#0F172A",
+    "composerIcon": "./assets/logo.svg",
+    "logo": "./assets/logo.svg"
+  }
+}
