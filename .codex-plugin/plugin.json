@@ -1,6 +1,6 @@
 {
   "name": "sdp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "SDP plugin for AI assistants. Build websites and administer product, listing, and custom-order catalogs through hosted MCP.",
   "author": {
     "name": "SDP Platforms",
@@ -29,7 +29,7 @@
       "Add a product with a public image URL through Products MCP."
     ],
     "brandColor": "#0F172A",
-    "composerIcon": "./assets/logo.svg",
-    "logo": "./assets/logo.svg"
+    "composerIcon": "./assets/logo.png",
+    "logo": "./assets/logo.png"
   }
 }

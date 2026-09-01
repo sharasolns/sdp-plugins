@@ -1,5 +1,9 @@
 # SDP Plugin
 
+<p align="center">
+  <img src="assets/logo.png" alt="SDP Platform" width="240">
+</p>
+
 Official SDP plugin for Codex, Claude Code, Cursor, Grok Bot, and other Agent Plugin clients. It connects coding agents to hosted SDP MCP servers for websites, products, listings, and custom-order types.
 
 Shared Agent Skills stay portable. Each client uses its native manifest. MCP tools and OAuth live on SDP hosts, not in this repository.

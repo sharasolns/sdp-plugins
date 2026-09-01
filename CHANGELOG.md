@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 - 2026-09-01
+
+- Use the SDP Platform logo in plugin manifests and the README.
+
 ## 0.1.1 - 2026-09-01
 
 - Tell users to create an SDP account at https://sdp-platform.com before OAuth.

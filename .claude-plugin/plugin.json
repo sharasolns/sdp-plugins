@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "sdp",
   "displayName": "SDP",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "SDP plugin for AI assistants. Build websites and administer product, listing, and custom-order catalogs through hosted MCP.",
   "author": {
     "name": "SDP Platforms",
@@ -12,5 +12,6 @@
   "homepage": "https://sdp-platform.com",
   "repository": "https://github.com/sdp-platforms/sdp-plugins",
   "license": "MIT",
-  "keywords": ["sdp", "website-builder", "mcp", "ecommerce", "listings"]
+  "keywords": ["sdp", "website-builder", "mcp", "ecommerce", "listings"],
+  "logo": "./assets/logo.png"
 }
