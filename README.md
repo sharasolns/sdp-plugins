@@ -88,14 +88,6 @@ Do not put credentials in this repository.
 - Publish website, page, or post changes only after review.
 - Catalog MCP does not operate carts, checkout, inquiries, or storefront HTML.
 
-## Development
-
-```bash
-python3 scripts/validate_repo.py
-```
-
-Website-builder skill prose is generated in `sdp-cms-backend` with `php artisan mcp:export-instructions`. Copy the exported files into `skills/sdp-website-builder/` when the catalog changes.
-
 ## License
 
 MIT
