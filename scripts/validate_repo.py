@@ -59,6 +59,7 @@ manifest_paths = {
     "claude": ".claude-plugin/plugin.json",
     "cursor": ".cursor-plugin/plugin.json",
     "codex": ".codex-plugin/plugin.json",
+    "grok": ".grok-plugin/plugin.json",
 }
 manifests = {name: load_json(path) for name, path in manifest_paths.items()}
 

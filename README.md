@@ -33,6 +33,14 @@ Start a new Codex session after installation. Authenticate each MCP server throu
 
 Start a new session and complete OAuth on first use. Plugin skills are namespaced, for example `/sdp:sdp-website-builder`.
 
+### Grok Build
+
+Submit/install via the [Grok Build Plugin Marketplace](https://github.com/xai-org/plugin-marketplace). After it is listed:
+
+```bash
+grok plugin install sdp --trust
+```
+
 ### Cursor / Grok Bot
 
 Clone or symlink this folder into Cursor's local plugin directory:
