@@ -5,6 +5,8 @@ description: Administer SDP listing catalogs through Listings MCP on the themes 
 
 # SDP Listings
 
+The user must already have an SDP account at https://sdp-platform.com. If OAuth fails, send them there to sign up or sign in first. Do not invent API keys.
+
 Call `list_companies` first. Pass explicit `company_id` on every other tool.
 
 Read `sdp://listings/instructions` before creating or mutating catalog records. Do not invent listing, type, brand, or collection ids.

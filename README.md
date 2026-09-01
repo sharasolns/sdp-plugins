@@ -4,6 +4,12 @@ Official SDP plugin for Codex, Claude Code, Cursor, Grok Bot, and other Agent Pl
 
 Shared Agent Skills stay portable. Each client uses its native manifest. MCP tools and OAuth live on SDP hosts, not in this repository.
 
+## Create an SDP account first
+
+You need an SDP account before OAuth can succeed. Sign up or sign in at **[https://sdp-platform.com](https://sdp-platform.com)**.
+
+Passwords must be at least 12 characters and include uppercase, lowercase, a number, and a symbol. After you have an account, install this plugin and complete the browser OAuth prompt. Do not invent an API key.
+
 ## Included skills
 
 - `sdp-website-builder` — compose Latte components, pages, templates, and publish
@@ -18,7 +24,7 @@ Task detail for website builder lives in [skills/sdp-website-builder/references/
 ### Codex
 
 ```bash
-codex plugin marketplace add /Users/iankibet/www/back-end/sdp-plugins
+codex plugin marketplace add sharasolns/sdp-plugins
 codex plugin add sdp@sdp
 ```
 
@@ -27,7 +33,7 @@ Start a new Codex session after installation. Authenticate each MCP server throu
 ### Claude Code
 
 ```text
-/plugin marketplace add /Users/iankibet/www/back-end/sdp-plugins
+/plugin marketplace add sharasolns/sdp-plugins
 /plugin install sdp@sdp
 ```
 
@@ -46,8 +52,9 @@ grok plugin install sdp --trust
 Clone or symlink this folder into Cursor's local plugin directory:
 
 ```bash
+git clone https://github.com/sharasolns/sdp-plugins.git
 mkdir -p ~/.cursor/plugins/local
-ln -s /Users/iankibet/www/back-end/sdp-plugins ~/.cursor/plugins/local/sdp
+ln -s "$(pwd)/sdp-plugins" ~/.cursor/plugins/local/sdp
 ```
 
 Reload Cursor or Grok Bot. Complete the SDP OAuth browser sign-in when each MCP server first connects.

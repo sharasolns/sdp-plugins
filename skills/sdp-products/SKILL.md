@@ -5,6 +5,8 @@ description: Administer SDP product catalogs through Products MCP on the themes 
 
 # SDP Products
 
+The user must already have an SDP account at https://sdp-platform.com. If OAuth fails, send them there to sign up or sign in first. Do not invent API keys.
+
 Call `list_companies` first. Pass explicit `company_id` on every other tool.
 
 Read `sdp://products/instructions` before creating or mutating catalog records. Do not invent product, type, brand, category, or collection ids.

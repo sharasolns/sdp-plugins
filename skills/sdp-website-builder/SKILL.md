@@ -5,6 +5,8 @@ description: Build, compose, inspect, or safely edit SDP CMS websites through th
 
 # SDP Website Builder
 
+The user must already have an SDP account at https://sdp-platform.com. If OAuth fails, send them there to sign up or sign in first. Do not invent API keys.
+
 This file is generated from `WebsiteBuilderInstructionCatalog`. Edit the catalog, then run `php artisan mcp:export-instructions`.
 
 Start with one `get_website_builder_instructions` call or read `sdp://instructions`. Pass only the task skills needed; combine related skills in the same call.
