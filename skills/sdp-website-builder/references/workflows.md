@@ -54,7 +54,7 @@ Connect a custom domain or free sm.ke subdomain and verify DNS.
 
 1. Call get_website_domain first. Use recommended_action and next_steps; do not invent DNS records.
 2. Prefer Cloudflare DNS. The owner must point nameservers at Cloudflare before add_custom. Then call connect_website_domain action=add_custom with the hostname.
-3. Call start_cloudflare_connect and ask the owner to open authorization_url. After they finish, call verify. If automatic setup is unavailable, give the returned dns_records (CNAME to cname.sdp-builder.com) and then verify.
+3. Call start_cloudflare_connect and ask the owner to open authorization_url. After they finish, call verify. If automatic setup is unavailable, give the returned dns_records (CNAME to cname_target) and then verify.
 4. If the owner does not want DNS, use add_sm_ke with a label such as hauzisha to create hauzisha.sm.ke. That path does not need Cloudflare or lookup.
 5. Verification can stay pending for a few minutes. Keep the temporary domain until custom_domain.status is active. Use remove only when the owner wants to detach the domain.
 
@@ -289,13 +289,95 @@ Render ecommerce, listing, course, taxonomy, archive, or custom-order runtime co
 
 ## Workflow
 
-1. Call get_website_build_context with include=[website,field_type_contract,runtime_content] and check website.feature_modules before building. Do not build a disabled module.
+1. Call get_website_build_context with include=[website,field_type_contract,runtime_content] and check website.feature_modules before building. Do not build a disabled module. Product inventory is Products MCP (/mcp/products), listing inventory is Listings MCP (/mcp/listings), and course inventory and curricula are Courses MCP (/mcp/courses). All live on the themes host. Never invent catalog ids.
 2. Use the documented list directive with its numeric per-page argument. Declare every filter that component data should control.
 3. Create single-item pages with the documented dynamic route and one body component calling the matching single-item directive.
-4. For ecommerce actions, use the documented <checkout-product-link> and <add-product-to-cart> elements with the numeric product id and required product attributes. On Tailwind sites call {sdpInjectProductsScript} once before using them; do not recreate checkout URLs or cart JavaScript.
-5. Use distinct archive prefixes, the documented heading getter, and taxonomy list directives. Avoid conflicting dynamic route parameters.
-6. Use {sdpInjectCustomFormScript} for custom-order forms. Obtain type slug, field slugs, and pricing item ids from Custom Forms MCP (/mcp/custom-forms on the themes host). Never invent them.
-7. After submit, reveal the hidden success element selected by the first tag argument, set data-success-redirect="/thank-you", or set data-success-redirect="view-order" to open /cp/view-custom-order/{unique_id}. Redirect takes precedence. Optional {unique_id} is replaced on custom paths.
+4. Treat a single course chapter/lesson tree as a lightweight public outline only. Do not render or infer protected lesson HTML, PDFs, quizzes, playback URLs, enrolment state, or learner progress in Website Builder.
+5. For course purchases, link to /cp/checkout-course/{$course->id} with the numeric course id. The checkout app handles buyer details, payment, and learner redirects; do not POST to /api/course-checkout from component code.
+6. For sign-in, registration, and account CTAs, link to /cp/login, /cp/register, /cp/profile, /cp/courses, /cp/custom-orders, or /cp/inquiries. Never build a custom login or registration form.
+7. For ecommerce actions, use the documented <checkout-product-link> and <add-product-to-cart> elements with the numeric product id and required product attributes. On Tailwind sites call {sdpInjectProductsScript} once before using them; do not recreate checkout URLs or cart JavaScript.
+8. The Tailwind products browser inserts utility-class markup after page load, while the builder generates CSS from static Latte source. Choose the styling approach that best fits the design: add component-scoped plain SCSS for the semantic .sdp-products-browser__* hooks, or include the tailwind_products_browser_skeleton example as a hidden static class-scan skeleton. Do not rely on runtime-only utility tokens being discovered. Validate, publish, and inspect the live desktop and mobile page after products load.
+9. For filterable listing catalogs use <sdp-listings-browser>; on Tailwind call {sdpInjectListingsScript} once. For fixed-count listing sections use {sdpGetListings N} cards, not the browser. Use {sdpGetListingsSummary} for counts. Location archives are locations/{location_slug} with {sdpGetLocation}.
+10. Use distinct archive prefixes, the documented heading getter, and taxonomy list directives. Avoid conflicting dynamic route parameters.
+11. Use {sdpInjectCustomFormScript} for custom-order forms. Obtain type slug, field slugs, and pricing item ids from Custom Forms MCP (/mcp/custom-forms on the themes host). Never invent them.
+12. After submit, reveal the hidden success element selected by the first tag argument, set data-success-redirect="/thank-you", or set data-success-redirect="view-order" to open /cp/view-custom-order/{unique_id}. Redirect takes precedence. Optional {unique_id} is replaced on custom paths.
+
+## Examples
+
+### Tailwind products browser class-scan skeleton
+
+Key: `tailwind_products_browser_skeleton`
+
+```latte
+{* Build-time Tailwind class scan only. Native hidden keeps this out of the rendered UI. *}
+<div hidden aria-hidden="true">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row gap-6">
+            <aside class="w-full lg:w-64 flex-shrink-0">
+                <div class="bg-white rounded-2xl shadow-sm p-4">
+                    <h6 class="font-bold mb-4 text-gray-900">Filters</h6>
+                    <div class="mb-4">
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Search</label>
+                        <input class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Category</label>
+                        <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none"></select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-xs font-semibold text-gray-600 mb-1">Brand</label>
+                        <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none"></select>
+                    </div>
+                    <div class="mb-4">
+                        <span class="text-xs text-gray-500 mb-2"></span>
+                        <input class="w-full mt-2">
+                    </div>
+                    <button class="w-full border border-gray-300 text-gray-600 rounded-full py-1.5 px-3 text-sm hover:bg-gray-50">Reset Filters</button>
+                </div>
+            </aside>
+            <main class="flex-1 min-w-0">
+                <div class="flex items-center justify-between mb-4">
+                    <h5 class="font-bold text-gray-900">Products</h5>
+                    <span class="text-sm text-gray-500"></span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <article class="bg-white rounded-2xl shadow-sm h-full flex flex-col">
+                        <a class="block no-underline">
+                            <div class="aspect-square bg-gray-100 overflow-hidden rounded-t-2xl">
+                                <img class="w-full h-full object-cover" alt="">
+                            </div>
+                        </a>
+                        <div class="p-4 flex flex-col flex-1">
+                            <a class="no-underline text-gray-900">
+                                <h6 class="font-bold mb-1 truncate text-sm">Product</h6>
+                            </a>
+                            <div class="text-gray-500 text-sm mb-3"></div>
+                            <div class="mt-auto flex items-center justify-between gap-2">
+                                <span class="font-bold"></span>
+                                <button class="rounded-full py-1 px-3 text-sm">Add</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div class="text-center mt-6">
+                    <button class="rounded-full py-2 px-6">Load More</button>
+                </div>
+                <div class="text-center py-10 text-gray-500 hidden">No products found.</div>
+                <div class="col-span-full bg-red-50 text-red-700 border border-red-200 rounded-lg p-4">Error</div>
+            </main>
+        </div>
+    </div>
+</div>
+
+{sdpInjectProductsScript}
+<sdp-products-browser
+    category="{$component->category ?? ''}"
+    collection="{$component->collection ?? ''}"
+    per-page="{$component->per_page ?? 12}"
+    url-prefix="{$component->url_prefix ?? 'products'}"
+    auto-load-more="{$component->auto_load_more ?? 'true'}"
+></sdp-products-browser>
+```
 
 ## Tools
 
