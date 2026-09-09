@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4 - 2026-09-09
+
+- Require every MCP-created website component to define an editable field and reference a declared field from its Latte markup.
+- Tell agents to model editable copy, media, links, and repeated content as semantic fields instead of hard-coding entire components.
+
 ## 0.1.3 - 2026-09-04
 
 - Add the hosted Courses Administration MCP and `sdp-courses` skill.

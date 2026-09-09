@@ -11,6 +11,8 @@ This file is generated from `WebsiteBuilderInstructionCatalog`. Edit the catalog
 
 Start with one `get_website_builder_instructions` call or read `sdp://instructions`. Pass only the task skills needed; combine related skills in the same call.
 
+For component creation, always define at least one editable field and reference a declared field from Latte markup. Model editable copy, media, links, and repeated content as semantic fields instead of hard-coding the entire component.
+
 - `website.create` (`/mcp/website-builder`): Create a website and establish its reusable visual foundation.
 - `website.settings` (`/mcp/website-builder`): Read or partially update website identity and media settings.
 - `website.domain` (`/mcp/website-builder`): Connect a custom domain or free sm.ke subdomain and verify DNS.

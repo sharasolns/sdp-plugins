@@ -79,14 +79,15 @@ Create one reusable Latte component with the correct schema, source, and styling
 ## Workflow
 
 1. Call get_website_build_context with include=[website,global_code,field_type_contract,architecture,component_inventory], then inspect existing website_components and component_types before creating anything.
-2. Fetch a candidate type with get_component_type before reusing its ID. Pass component_type_id to reuse it. Omit both type fields to create a one-off type from the component name and optional fields. Create a new shared type only when the logical schema is genuinely different.
+2. Fetch a candidate type with get_component_type before reusing its ID. Pass component_type_id to reuse it. Omit both type fields only when supplying fields to create a one-off type from the component name. Create a new shared type only when the logical schema is genuinely different.
 3. One component represents one cohesive section. Repeated items within that section use one array-of-objects field.
-4. Component types provide defaults; create_website_component.fields may add or override instance fields without mutating the type.
-5. If global_code.custom_css_bytes is zero, establish tokens and shared classes first. Put only this section's rules in component scss (auto-scoped) or <style scoped>. Reference shared global classes from markup. Match website.theme.frontend_framework; do not mix Bootstrap and Tailwind.
-6. Use semantic field types from field_type_contract. Latte object and repeater children use ->child access.
-7. Image fields: write a public URL in data and alt in field_meta.{field}.alt, or write {url, alt}. Render <img src="{$image->url ?? $image}" alt="{$image->alt ?? ''}">. Nested images inside object/array children must be {url, alt} objects.
-8. Link fields are objects: {$link->url}, {$link->text}, {$link->target}. HTML/rich text uses {$body|noescape}. Do not put class="" and n:class on the same element.
-9. Create and validate components sequentially. Correct errors until valid=true before placement.
+4. Every new component must resolve at least one editable field, and custom_html must reference at least one declared field with Latte. This includes runtime-driven components, which should expose an editable heading or similar field. Model editable copy, images, links, and repeated content as semantic fields instead of hard-coding the entire component.
+5. Component types provide defaults; create_website_component.fields may add or override instance fields without mutating the type.
+6. If global_code.custom_css_bytes is zero, establish tokens and shared classes first. Put only this section's rules in component scss (auto-scoped) or <style scoped>. Reference shared global classes from markup. Match website.theme.frontend_framework; do not mix Bootstrap and Tailwind.
+7. Use semantic field types from field_type_contract. Latte object and repeater children use ->child access.
+8. Image fields: write a public URL in data and alt in field_meta.{field}.alt, or write {url, alt}. Render <img src="{$image->url ?? $image}" alt="{$image->alt ?? ''}">. Nested images inside object/array children must be {url, alt} objects.
+9. Link fields are objects: {$link->url}, {$link->text}, {$link->target}. HTML/rich text uses {$body|noescape}. Do not put class="" and n:class on the same element.
+10. Create and validate components sequentially. Correct errors until valid=true before placement.
 
 ## Tools
 
