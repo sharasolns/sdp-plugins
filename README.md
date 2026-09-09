@@ -4,7 +4,7 @@
   <img src="assets/logo.png" alt="SDP Platform" width="240">
 </p>
 
-Official SDP plugin for Codex, Claude Code, Cursor, Grok Bot, and other Agent Plugin clients. It connects coding agents to hosted SDP MCP servers for websites, products, listings, and custom-order types.
+Official SDP plugin for Codex, Claude Code, Cursor, Grok Bot, and other Agent Plugin clients. It connects coding agents to hosted SDP MCP servers for websites, products, listings, courses, and custom-order types.
 
 Shared Agent Skills stay portable. Each client uses its native manifest. MCP tools and OAuth live on SDP hosts, not in this repository.
 
@@ -19,9 +19,10 @@ Passwords must be at least 12 characters and include uppercase, lowercase, a num
 - `sdp-website-builder` — compose Latte components, pages, templates, and publish
 - `sdp-products` — product catalog CRUD and images
 - `sdp-listings` — listing catalog CRUD and images
+- `sdp-courses` — course authoring, media, curricula, quizzes, and tests
 - `sdp-custom-forms` — custom order types, fields, and pricing items
 
-Task detail for website builder lives in [skills/sdp-website-builder/references/workflows.md](skills/sdp-website-builder/references/workflows.md). Catalog skills defer to `sdp://products/instructions`, `sdp://listings/instructions`, and `sdp://custom-forms/instructions`.
+Task detail for website builder lives in [skills/sdp-website-builder/references/workflows.md](skills/sdp-website-builder/references/workflows.md). Catalog skills defer to `sdp://products/instructions`, `sdp://listings/instructions`, `sdp://courses/instructions`, and `sdp://custom-forms/instructions`.
 
 ## Installation
 
@@ -71,6 +72,7 @@ Add these Streamable HTTP URLs as remote MCP connectors:
 https://sdp-api.sdp-platform.com/mcp/website-builder
 https://themes-production.sdp-platform.com/mcp/products
 https://themes-production.sdp-platform.com/mcp/listings
+https://themes-production.sdp-platform.com/mcp/courses
 https://themes-production.sdp-platform.com/mcp/custom-forms
 ```
 
@@ -87,10 +89,10 @@ Do not put credentials in this repository.
 
 ## Safety
 
-- Never invent product ids, listing slugs, custom order type slugs, or pricing item ids.
+- Never invent product ids, listing slugs, course/type/collection ids, custom order type slugs, or pricing item ids.
 - Never send base64 media through MCP.
 - Publish website, page, or post changes only after review.
-- Catalog MCP does not operate carts, checkout, inquiries, or storefront HTML.
+- Catalog MCP does not operate carts, checkout, inquiries, enrolments, learner progress, or storefront HTML.
 
 ## License
 

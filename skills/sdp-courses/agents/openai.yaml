@@ -1,0 +1,13 @@
+interface:
+  display_name: "SDP Courses"
+  short_description: "Author SDP courses and curricula"
+  default_prompt: "Use $sdp-courses to list companies and create or update a course with its required media and curriculum."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "sdp-courses"
+      description: "SDP Courses Administration hosted MCP server"
+      transport: "streamable_http"
+      url: "https://themes-production.sdp-platform.com/mcp/courses"
+policy:
+  allow_implicit_invocation: true

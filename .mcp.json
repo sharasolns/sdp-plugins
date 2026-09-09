@@ -12,6 +12,10 @@
       "type": "http",
       "url": "https://themes-production.sdp-platform.com/mcp/listings"
     },
+    "sdp-courses": {
+      "type": "http",
+      "url": "https://themes-production.sdp-platform.com/mcp/courses"
+    },
     "sdp-custom-forms": {
       "type": "http",
       "url": "https://themes-production.sdp-platform.com/mcp/custom-forms"

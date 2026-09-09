@@ -16,6 +16,7 @@ MCP_SERVERS = {
     "sdp-website-builder": "https://sdp-api.sdp-platform.com/mcp/website-builder",
     "sdp-products": "https://themes-production.sdp-platform.com/mcp/products",
     "sdp-listings": "https://themes-production.sdp-platform.com/mcp/listings",
+    "sdp-courses": "https://themes-production.sdp-platform.com/mcp/courses",
     "sdp-custom-forms": "https://themes-production.sdp-platform.com/mcp/custom-forms",
 }
 
