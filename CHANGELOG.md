@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5 - 2026-09-10
+
+- Correct the `repository` URL in the Claude, Cursor, Codex, and Open Plugins manifests; it pointed at a non-existent `sdp-platforms/sdp-plugins`.
+- Add a root `SETUP.md` covering account prerequisites, per-server OAuth, company context, and troubleshooting.
+
 ## 0.1.4 - 2026-09-09
 
 - Require every MCP-created website component to define an editable field and reference a declared field from its Latte markup.

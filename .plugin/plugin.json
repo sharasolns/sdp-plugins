@@ -1,6 +1,6 @@
 {
   "name": "sdp",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "SDP plugin for AI assistants. Build websites and administer product, listing, course, and custom-order catalogs through hosted MCP.",
   "author": {
     "name": "SDP Platforms",
@@ -8,7 +8,7 @@
     "url": "https://sdp-platform.com"
   },
   "homepage": "https://sdp-platform.com",
-  "repository": "https://github.com/sdp-platforms/sdp-plugins",
+  "repository": "https://github.com/sharasolns/sdp-plugins",
   "license": "MIT",
   "keywords": ["sdp", "website-builder", "mcp", "ecommerce", "listings", "courses"],
   "logo": "./assets/logo.png",
