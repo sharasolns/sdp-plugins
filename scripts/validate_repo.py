@@ -74,8 +74,8 @@ else:
         error(f"CHANGELOG.md has no entry for {version}")
 
 for surface, manifest in manifests.items():
-    if manifest.get("name") != "sdp":
-        error(f"{surface} manifest name must be sdp")
+    if manifest.get("name") != "sdp-platform":
+        error(f"{surface} manifest name must be sdp-platform")
     for field in ("skills", "mcpServers", "logo"):
         if field in manifest and isinstance(manifest[field], str):
             check_path(f"{surface}.{field}", manifest[field])

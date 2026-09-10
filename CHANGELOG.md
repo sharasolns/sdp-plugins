@@ -2,7 +2,7 @@
 
 ## 0.1.8 - 2026-09-10
 
-- Rename the plugin display name to "SDP Platform" and switch the contact email to `info@sdp-platform.com`.
+- Rename the plugin: id `sdp` -> `sdp-platform`, display name "SDP Platform". Install as `sdp-platform@sdp` (Claude/Codex), `sdp-platform` (Grok); skills namespace to `/sdp-platform:...`. Switch the contact email to `info@sdp-platform.com`.
 - website-builder: new `clone_page` tool; `get_page` gains `include_data` for lighter payloads; `replace_page_composition` / `replace_template_composition` gain `dry_run`; `create_website_component` returns the resolved `component_type`. Instruction docs now cover archive-as-delete, content-plan auto-publish, and the `field_meta` shape. Regenerated `sdp-website-builder` reference docs.
 
 ## 0.1.7 - 2026-09-10

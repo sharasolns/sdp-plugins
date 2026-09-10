@@ -7,7 +7,7 @@
   "description": "Official SDP plugin marketplace. Website builder, products, listings, courses, and custom forms for AI agents.",
   "plugins": [
     {
-      "name": "sdp",
+      "name": "sdp-platform",
       "displayName": "SDP Platform",
       "source": "./",
       "description": "Build SDP websites and administer product, listing, course, and custom-order catalogs through hosted MCP.",

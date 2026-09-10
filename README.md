@@ -30,7 +30,7 @@ Task detail for website builder lives in [skills/sdp-website-builder/references/
 
 ```bash
 codex plugin marketplace add sharasolns/sdp-plugins
-codex plugin add sdp@sdp
+codex plugin add sdp-platform@sdp
 ```
 
 Start a new Codex session after installation. Authenticate each MCP server through OAuth when prompted.
@@ -39,17 +39,17 @@ Start a new Codex session after installation. Authenticate each MCP server throu
 
 ```text
 /plugin marketplace add sharasolns/sdp-plugins
-/plugin install sdp@sdp
+/plugin install sdp-platform@sdp
 ```
 
-Start a new session and complete OAuth on first use. Plugin skills are namespaced, for example `/sdp:sdp-website-builder`.
+Start a new session and complete OAuth on first use. Plugin skills are namespaced, for example `/sdp-platform:sdp-website-builder`.
 
 ### Grok Build
 
 Submit/install via the [Grok Build Plugin Marketplace](https://github.com/xai-org/plugin-marketplace). After it is listed:
 
 ```bash
-grok plugin install sdp --trust
+grok plugin install sdp-platform --trust
 ```
 
 ### Cursor / Grok Bot
@@ -59,7 +59,7 @@ Clone or symlink this folder into Cursor's local plugin directory:
 ```bash
 git clone https://github.com/sharasolns/sdp-plugins.git
 mkdir -p ~/.cursor/plugins/local
-ln -s "$(pwd)/sdp-plugins" ~/.cursor/plugins/local/sdp
+ln -s "$(pwd)/sdp-plugins" ~/.cursor/plugins/local/sdp-platform
 ```
 
 Reload Cursor or Grok Bot. Complete the SDP OAuth browser sign-in when each MCP server first connects.
