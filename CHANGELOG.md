@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6 - 2026-09-10
+
+- Correct `privacyPolicyURL` and `termsOfServiceURL` in the Codex manifest; both pointed at 404 paths. The live pages are `/privacy-policy` and `/terms-and-conditions`.
+
 ## 0.1.5 - 2026-09-10
 
 - Correct the `repository` URL in the Claude, Cursor, Codex, and Open Plugins manifests; it pointed at a non-existent `sdp-platforms/sdp-plugins`.

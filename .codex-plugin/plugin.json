@@ -1,6 +1,6 @@
 {
   "name": "sdp",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "SDP plugin for AI assistants. Build websites and administer product, listing, course, and custom-order catalogs through hosted MCP.",
   "author": {
     "name": "SDP Platforms",
@@ -21,8 +21,8 @@
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
     "websiteURL": "https://sdp-platform.com",
-    "privacyPolicyURL": "https://sdp-platform.com/privacy",
-    "termsOfServiceURL": "https://sdp-platform.com/terms",
+    "privacyPolicyURL": "https://sdp-platform.com/privacy-policy",
+    "termsOfServiceURL": "https://sdp-platform.com/terms-and-conditions",
     "defaultPrompt": [
       "List my SDP websites and describe the current theme framework.",
       "Create a draft listings page that uses {sdpGetListings}.",
