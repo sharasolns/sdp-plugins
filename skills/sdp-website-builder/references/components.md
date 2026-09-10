@@ -26,7 +26,8 @@ Create one reusable Latte component with the correct schema, source, and styling
 7. Use semantic field types from field_type_contract. Latte object and repeater children use ->child access.
 8. Image fields: write a public URL in data and alt in field_meta.{field}.alt, or write {url, alt}. Render <img src="{$image->url ?? $image}" alt="{$image->alt ?? ''}">. Nested images inside object/array children must be {url, alt} objects.
 9. Link fields are objects: {$link->url}, {$link->text}, {$link->target}. HTML/rich text uses {$body|noescape}. Do not put class="" and n:class on the same element.
-10. Create and validate components sequentially. Correct errors until valid=true before placement.
+10. field_meta is a flat map keyed by top-level field name; each value may only hold element, classes (string array), alt, title, src, target, text. It carries no per-item data: link, link_array, text_array and image_array take no field_meta — put per-entry target/alt/text inside the field value objects instead ({url, text, target} or {url, alt}).
+11. Create and validate components sequentially. Correct errors until valid=true before placement.
 
 ## Tools
 
@@ -76,6 +77,7 @@ Add, override, soft-remove, or restore fields on one component instance.
 3. Set field values only after the resolved schema contains those keys. Unknown-field errors require re-reading the schema rather than guessing.
 4. Use image, bootstrap_icon, link, object, array, and scalar array types according to field_type_contract.
 5. Image values are a public URL or {url, alt}. Nested image children inside objects/repeaters must be {url, alt} so alt is available as $item->image->alt.
+6. field_meta is a flat map of field name to {element?, classes?, alt?, title?, src?, target?, text?}. There is no per-array-item meta: for link_array/text_array/image_array, store per-entry values in the field data objects, not in field_meta.
 
 ## Tools
 

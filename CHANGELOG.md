@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.8 - 2026-09-10
+
+- Rename the plugin display name to "SDP Platform" and switch the contact email to `info@sdp-platform.com`.
+- website-builder: new `clone_page` tool; `get_page` gains `include_data` for lighter payloads; `replace_page_composition` / `replace_template_composition` gain `dry_run`; `create_website_component` returns the resolved `component_type`. Instruction docs now cover archive-as-delete, content-plan auto-publish, and the `field_meta` shape. Regenerated `sdp-website-builder` reference docs.
+
 ## 0.1.7 - 2026-09-10
 
 - website-builder: `replace_page_composition` and `replace_template_composition` now accept a flat `components` array (`{component_id, data?, field_meta?}`); `sections` is optional and only needed when a template owns more than one section. Regenerated `sdp-website-builder` workflow docs with the new guidance and examples.

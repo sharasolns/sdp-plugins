@@ -1,10 +1,11 @@
 {
   "name": "sdp",
-  "version": "0.1.7",
+  "displayName": "SDP Platform",
+  "version": "0.1.8",
   "description": "SDP plugin for Grok Build. Build websites and administer product, listing, course, and custom-order catalogs through hosted MCP.",
   "author": {
     "name": "SDP Platforms",
-    "email": "hello@sdp-platform.com",
+    "email": "info@sdp-platform.com",
     "url": "https://sdp-platform.com"
   },
   "homepage": "https://github.com/sharasolns/sdp-plugins",

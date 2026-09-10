@@ -87,7 +87,8 @@ Create one reusable Latte component with the correct schema, source, and styling
 7. Use semantic field types from field_type_contract. Latte object and repeater children use ->child access.
 8. Image fields: write a public URL in data and alt in field_meta.{field}.alt, or write {url, alt}. Render <img src="{$image->url ?? $image}" alt="{$image->alt ?? ''}">. Nested images inside object/array children must be {url, alt} objects.
 9. Link fields are objects: {$link->url}, {$link->text}, {$link->target}. HTML/rich text uses {$body|noescape}. Do not put class="" and n:class on the same element.
-10. Create and validate components sequentially. Correct errors until valid=true before placement.
+10. field_meta is a flat map keyed by top-level field name; each value may only hold element, classes (string array), alt, title, src, target, text. It carries no per-item data: link, link_array, text_array and image_array take no field_meta — put per-entry target/alt/text inside the field value objects instead ({url, text, target} or {url, alt}).
+11. Create and validate components sequentially. Correct errors until valid=true before placement.
 
 ## Tools
 
@@ -137,6 +138,7 @@ Add, override, soft-remove, or restore fields on one component instance.
 3. Set field values only after the resolved schema contains those keys. Unknown-field errors require re-reading the schema rather than guessing.
 4. Use image, bootstrap_icon, link, object, array, and scalar array types according to field_type_contract.
 5. Image values are a public URL or {url, alt}. Nested image children inside objects/repeaters must be {url, alt} so alt is available as $item->image->alt.
+6. field_meta is a flat map of field name to {element?, classes?, alt?, title?, src?, target?, text?}. There is no per-array-item meta: for link_array/text_array/image_array, store per-entry values in the field data objects, not in field_meta.
 
 ## Tools
 
@@ -178,8 +180,10 @@ Compose a page from reusable component placements while preserving template owne
 
 1. Call get_website_build_context with include=[website,architecture,component_inventory,templates], then read get_page. Pages place content only in the selected template page_sections and inherit the shared shell.
 2. Reuse compatible website components. A normal multi-section page uses multiple cohesive components, not one entire-page component.
-3. replace_page_composition replaces the whole page. Pass a flat components array of {component_id, data?, field_meta?} for the usual single-section page; use the sections form (mirrors get_page -> sections) only when template.page_sections lists more than one section. Any section you omit is cleared. Use add, move, update, or delete tools for precise changes.
-4. Placement data is local. Preserve exact ordering and preview before publishing.
+3. replace_page_composition replaces the whole page. Pass a flat components array of {component_id, data?, field_meta?} for the usual single-section page; use the sections form (mirrors get_page -> sections) only when template.page_sections lists more than one section. Any section you omit is cleared. Use add, move, update, or delete tools for precise changes. Add dry_run:true first to validate section names and component IDs without writing.
+4. To reproduce an existing page, call clone_page with its source_page_id instead of reading its source and re-composing by hand. The clone is a new draft with every placement and its local data copied.
+5. get_page returns slim placement summaries. Add include_source=true for markup; add include_data=false alongside it to drop per-placement data blobs, or read one placement with get_website_component.
+6. Placement data is local. Preserve exact ordering and preview before publishing.
 
 ## Examples
 
@@ -213,6 +217,7 @@ Compose a page from reusable component placements while preserving template owne
 
 - `get_website_build_context`
 - `get_page`
+- `clone_page`
 - `replace_page_composition`
 - `add_page_component`
 - `move_page_component`
@@ -428,7 +433,8 @@ Review lifecycle state and publish website, page, or post changes safely.
 1. Use discovery tools before precise mutation and get_website_content_summary for counts instead of walking large catalogs.
 2. Validate components and inspect previews before publishing.
 3. Use publish_page or publish_post after content review, change_content_status for other lifecycle changes, and keep parking separate from status.
-4. Use get_website_status to inspect unpublished changes and publish_website to deploy website-level changes. Clearing cache does not publish.
+4. There is no hard delete for pages or posts. change_content_status action archive removes content from the site (status becomes archived and its url_slug gets a -archived-at<timestamp> suffix; the row is kept); action restore brings it back. Parking (park_content) is only a to-do marker and never changes status.
+5. Use get_website_status to inspect unpublished changes and publish_website to deploy website-level changes. Clearing cache does not publish.
 
 ## Tools
 
@@ -472,8 +478,9 @@ Create and manage content plans, assignments, categories, groups, and reminders.
 1. These tools live on /mcp/website-builder: list_content_plans, get_content_plan, create_content_plan, update_content_plan, delete_content_plan, change_content_plan_status, convert_content_plan, list_content_plan_groups, create_content_plan_group, update_content_plan_group, delete_content_plan_group, list_planner_assignees, get_planner_reminder_settings, update_planner_reminder_settings.
 2. Use list_categories and list_planner_assignees before assigning category_id or assignee_ids.
 3. Use change_content_plan_status to move an idea to planned when it is approved for the calendar. Setting planned_date alone does not change its status.
-4. A plan category is preserved when convert_content_plan creates a page or post.
-5. Read reminder settings before updating due-day, overdue, or final-day behavior.
+4. published is not a manual status. Publishing the linked page or post automatically sets the plan to published with published_at; unpublishing it moves the plan back to drafted.
+5. A plan category is preserved when convert_content_plan creates a page or post.
+6. Read reminder settings before updating due-day, overdue, or final-day behavior.
 
 ## Tools
 

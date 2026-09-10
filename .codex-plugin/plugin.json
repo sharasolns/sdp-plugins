@@ -1,10 +1,11 @@
 {
   "name": "sdp",
-  "version": "0.1.7",
+  "displayName": "SDP Platform",
+  "version": "0.1.8",
   "description": "SDP plugin for AI assistants. Build websites and administer product, listing, course, and custom-order catalogs through hosted MCP.",
   "author": {
     "name": "SDP Platforms",
-    "email": "hello@sdp-platform.com",
+    "email": "info@sdp-platform.com",
     "url": "https://sdp-platform.com"
   },
   "homepage": "https://sdp-platform.com",
@@ -14,7 +15,7 @@
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
-    "displayName": "SDP",
+    "displayName": "SDP Platform",
     "shortDescription": "Website builder and catalogs for SDP",
     "longDescription": "Connect an SDP account to build websites with Latte components and administer products, listings, courses, and custom-order types through hosted MCP. Authenticate with OAuth. Never invent catalog ids or type slugs.",
     "developerName": "SDP Platforms",
