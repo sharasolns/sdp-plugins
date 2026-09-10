@@ -8,6 +8,7 @@
   "plugins": [
     {
       "name": "sdp",
+      "displayName": "SDP Platform",
       "source": "./",
       "description": "Build SDP websites and administer product, listing, course, and custom-order catalogs through hosted MCP.",
       "category": "productivity"
