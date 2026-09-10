@@ -178,8 +178,36 @@ Compose a page from reusable component placements while preserving template owne
 
 1. Call get_website_build_context with include=[website,architecture,component_inventory,templates], then read get_page. Pages place content only in the selected template page_sections and inherit the shared shell.
 2. Reuse compatible website components. A normal multi-section page uses multiple cohesive components, not one entire-page component.
-3. Use replace_page_composition when replacing the complete ordered composition; use add, move, update, or delete tools for precise changes.
+3. replace_page_composition replaces the whole page. Pass a flat components array of {component_id, data?, field_meta?} for the usual single-section page; use the sections form (mirrors get_page -> sections) only when template.page_sections lists more than one section. Any section you omit is cleared. Use add, move, update, or delete tools for precise changes.
 4. Placement data is local. Preserve exact ordering and preview before publishing.
+
+## Examples
+
+### Single-section page: flat components
+
+```json
+{
+  "website_id": 1,
+  "page_id": 12,
+  "components": [
+    { "component_id": 88 },
+    { "component_id": 91, "data": { "heading": "Our pricing" } }
+  ]
+}
+```
+
+### Multi-section page: named sections
+
+```json
+{
+  "website_id": 1,
+  "page_id": 12,
+  "sections": [
+    { "name": "main", "components": [{ "component_id": 88 }] },
+    { "name": "sidebar", "components": [{ "component_id": 77 }] }
+  ]
+}
+```
 
 ## Tools
 
@@ -205,6 +233,7 @@ Create or update the minimal template family and shared shell.
 3. Each child directly inherits the base and declares inherited template section names, but never duplicates parent-owned placements.
 4. Children may own defaults only in page_sections. A post template also owns one body View Post component rendering the runtime $page object.
 5. Call get_website_build_context with include=[website,architecture,component_inventory,templates], read architecture_warnings, preserve ordering, and set the view-post or 404 template explicitly when required.
+6. replace_template_composition replaces every owned placement. A base template owns its template_sections; a child owns its page_sections. Pass a flat components array when the template owns one section, otherwise use the sections form or set section per component.
 
 ## Tools
 

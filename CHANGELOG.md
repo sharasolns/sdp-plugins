@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.7 - 2026-09-10
+
+- website-builder: `replace_page_composition` and `replace_template_composition` now accept a flat `components` array (`{component_id, data?, field_meta?}`); `sections` is optional and only needed when a template owns more than one section. Regenerated `sdp-website-builder` workflow docs with the new guidance and examples.
+
 ## 0.1.6 - 2026-09-10
 
 - Correct `privacyPolicyURL` and `termsOfServiceURL` in the Codex manifest; both pointed at 404 paths. The live pages are `/privacy-policy` and `/terms-and-conditions`.
