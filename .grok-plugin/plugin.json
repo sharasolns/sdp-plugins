@@ -1,7 +1,7 @@
 {
   "name": "sdp-platform",
   "displayName": "SDP Platform",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "SDP plugin for Grok Build. Build websites and administer product, listing, course, and custom-order catalogs through hosted MCP.",
   "author": {
     "name": "SDP Platforms",

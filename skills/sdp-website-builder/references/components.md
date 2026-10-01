@@ -23,11 +23,13 @@ Create one reusable Latte component with the correct schema, source, and styling
 4. Every new component must resolve at least one editable field, and custom_html must reference at least one declared field with Latte. This includes runtime-driven components, which should expose an editable heading or similar field. Model editable copy, images, links, and repeated content as semantic fields instead of hard-coding the entire component.
 5. Component types provide defaults; create_website_component.fields may add or override instance fields without mutating the type.
 6. If global_code.custom_css_bytes is zero, establish tokens and shared classes first. Put only this section's rules in component scss (auto-scoped) or <style scoped>. Reference shared global classes from markup. Match website.theme.frontend_framework; do not mix Bootstrap and Tailwind.
-7. Use semantic field types from field_type_contract. Latte object and repeater children use ->child access.
-8. Image fields: write a public URL in data and alt in field_meta.{field}.alt, or write {url, alt}. Render <img src="{$image->url ?? $image}" alt="{$image->alt ?? ''}">. Nested images inside object/array children must be {url, alt} objects.
-9. Link fields are objects: {$link->url}, {$link->text}, {$link->target}. HTML/rich text uses {$body|noescape}. Do not put class="" and n:class on the same element.
-10. field_meta is a flat map keyed by top-level field name; each value may only hold element, classes (string array), alt, title, src, target, text. It carries no per-item data: link, link_array, text_array and image_array take no field_meta — put per-entry target/alt/text inside the field value objects instead ({url, text, target} or {url, alt}).
-11. Create and validate components sequentially. Correct errors until valid=true before placement.
+7. Alpine.js (deferred, auto-starting) and SAL.js (data-sal scroll-reveal) are already loaded globally on every page by the theme, before any component renders. Use x-data/x-on/x-show/x-for for interactivity and data-sal/data-sal-duration/data-sal-delay/data-sal-easing for scroll animation directly in custom_html. Do not add another <script src> tag for either library.
+8. Prefer Alpine x-data over an inline <script> block for behavior: component scss is auto-scoped per placement ([data-component]/[data-version]), but a hand-written <script> is not, so placing the same component twice on one page risks duplicate IDs, duplicate event listeners, and global variable collisions. Alpine state is scoped to the element it is declared on, so it does not have this problem. An inline <script> is not rejected by validation, but avoid it unless the behavior is impossible in Alpine.
+9. Use semantic field types from field_type_contract. Latte object and repeater children use ->child access.
+10. Image fields: write a public URL in data and alt in field_meta.{field}.alt, or write {url, alt}. Render <img src="{$image->url ?? $image}" alt="{$image->alt ?? ''}">. Nested images inside object/array children must be {url, alt} objects.
+11. Link fields are objects: {$link->url}, {$link->text}, {$link->target}. HTML/rich text uses {$body|noescape}. Do not put class="" and n:class on the same element.
+12. field_meta is a flat map keyed by top-level field name; each value may only hold element, classes (string array), alt, title, src, target, text. It carries no per-item data: link, link_array, text_array and image_array take no field_meta — put per-entry target/alt/text inside the field value objects instead ({url, text, target} or {url, alt}).
+13. Create and validate components sequentially. Correct errors until valid=true before placement.
 
 ## Tools
 

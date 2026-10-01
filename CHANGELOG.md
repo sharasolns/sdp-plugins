@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.9 - 2026-10-01
+
+- Regenerate Website Builder instructions from the current backend catalog.
+- Bundle source-exported catalog references and document catalog image attachment, listing variants, and read-only course quiz results.
+- Add a repeatable instruction sync command with drift checking.
+
 ## 0.1.8 - 2026-09-10
 
 - Rename the plugin: id `sdp` -> `sdp-platform`, display name "SDP Platform". Install as `sdp-platform@sdp` (Claude/Codex), `sdp-platform` (Grok); skills namespace to `/sdp-platform:...`. Switch the contact email to `info@sdp-platform.com`.

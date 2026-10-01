@@ -18,3 +18,11 @@ Import a public image URL or complete a Cloudflare direct upload. Never send bas
 ## Storefront
 
 Website Builder only renders `{sdpGetListings}` / `{sdpGetListing}` pages. Link items to `/listings/{$listing->slug}`. Inquiry CTAs use `/cp/new-inquiry/{$listing->id}`.
+
+## Instruction reference
+
+Read [references/instructions.md](references/instructions.md) for source-exported workflows and examples. Refresh the hosted instruction resource before mutations; it takes precedence over this bundled snapshot.
+
+For listing type, brand, collection, or variant images, use `import_catalog_image_url` or the catalog direct-upload flow, then `attach_catalog_image` with the returned `file_id`. Upload completion alone does not attach the image.
+
+`update_listing_variant` requires `price` and the full `custom_field_values` set on every call. Use type fields with `use_for_variants` enabled.

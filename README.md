@@ -97,3 +97,15 @@ Do not put credentials in this repository.
 ## License
 
 MIT
+
+## Updating instruction documentation
+
+From this repository, with sibling `sdp-cms-backend` and `sdp-themes` checkouts:
+
+```bash
+python3 scripts/sync_instructions.py
+python3 scripts/sync_instructions.py --check
+python3 scripts/validate_repo.py
+```
+
+Use `--backend PATH` and `--themes PATH` for other checkout locations. Website Builder files are copied directly from `WebsiteBuilderInstructionDocs`; catalog references are extracted from their MCP resource sources. Update the concise catalog skills when behavior changes. Bundled references are source snapshots; authenticated hosted instruction resources remain authoritative.

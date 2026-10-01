@@ -14,3 +14,7 @@ Read `sdp://custom-forms/instructions` before creating or mutating types. Do not
 ## Storefront
 
 Website Builder only renders public forms with `{sdpInjectCustomFormScript}`. Copy slug, field slugs, and pricing item ids from `get_custom_order_type`.
+
+## Instruction reference
+
+Read [references/instructions.md](references/instructions.md) for source-exported workflows and examples. Refresh the hosted instruction resource before mutations; it takes precedence over this bundled snapshot.

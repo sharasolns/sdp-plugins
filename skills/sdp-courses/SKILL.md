@@ -1,6 +1,6 @@
 ---
 name: sdp-courses
-description: Administer SDP courses through Courses MCP on the themes host. Use for course types, collections, covers, videos, chapters, lessons, PDFs, quizzes, final tests, and course lifecycle changes. Do not use for purchases, learners, enrolments, progress, certificates, analytics, or storefront HTML.
+description: Administer SDP courses through Courses MCP on the themes host. Use for course types, collections, covers, videos, chapters, lessons, PDFs, quizzes, final tests, and course lifecycle changes. Do not use for purchases, learners, enrolments, progress, certificates, or storefront HTML. Read-only quiz attempt results are supported.
 ---
 
 # SDP Courses
@@ -21,4 +21,10 @@ Curriculum mutations are granular. Quiz and final-test replacement is atomic. Ch
 
 ## Storefront
 
-Website Builder only renders `{sdpGetCourses}` / `{sdpGetCourse}` pages. Link items to `/courses/{$course->slug}`. The chapter/lesson tree is a lightweight public outline; do not infer or expose lesson HTML, PDFs, quizzes, playback URLs, enrolment state, or learner progress. Course purchases, enrolments, learner progress, certificates, and analytics are outside Courses MCP.
+Website Builder only renders `{sdpGetCourses}` / `{sdpGetCourse}` pages. Link items to `/courses/{$course->slug}`. The chapter/lesson tree is a lightweight public outline; do not infer or expose lesson HTML, PDFs, quizzes, playback URLs, enrolment state, or learner progress. Course purchases, enrolments, learner progress, and certificates are outside Courses MCP. Read quiz results with `list_course_test_attempts` and `get_course_test_attempt`; these tools do not change learner progress.
+
+## Instruction reference
+
+Read [references/instructions.md](references/instructions.md) for source-exported workflows and examples. Refresh the hosted instruction resource before mutations; it takes precedence over this bundled snapshot.
+
+For course type or collection images, use `import_catalog_image_url` or the catalog direct-upload flow, then `attach_catalog_image` with the returned `file_id`. Upload completion alone does not attach the image.

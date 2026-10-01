@@ -53,7 +53,7 @@ Connect a custom domain or free sm.ke subdomain and verify DNS.
 ## Workflow
 
 1. Call get_website_domain first. Use recommended_action and next_steps; do not invent DNS records.
-2. Prefer Cloudflare DNS. The owner must point nameservers at Cloudflare before add_custom. Then call connect_website_domain action=add_custom with the hostname.
+2. Call connect_website_domain action=add_custom with the hostname to register the domain. Cloudflare DNS is preferred but not required.
 3. Call start_cloudflare_connect and ask the owner to open authorization_url. After they finish, call verify. If automatic setup is unavailable, give the returned dns_records (CNAME to cname_target) and then verify.
 4. If the owner does not want DNS, use add_sm_ke with a label such as hauzisha to create hauzisha.sm.ke. That path does not need Cloudflare or lookup.
 5. Verification can stay pending for a few minutes. Keep the temporary domain until custom_domain.status is active. Use remove only when the owner wants to detach the domain.
@@ -84,11 +84,13 @@ Create one reusable Latte component with the correct schema, source, and styling
 4. Every new component must resolve at least one editable field, and custom_html must reference at least one declared field with Latte. This includes runtime-driven components, which should expose an editable heading or similar field. Model editable copy, images, links, and repeated content as semantic fields instead of hard-coding the entire component.
 5. Component types provide defaults; create_website_component.fields may add or override instance fields without mutating the type.
 6. If global_code.custom_css_bytes is zero, establish tokens and shared classes first. Put only this section's rules in component scss (auto-scoped) or <style scoped>. Reference shared global classes from markup. Match website.theme.frontend_framework; do not mix Bootstrap and Tailwind.
-7. Use semantic field types from field_type_contract. Latte object and repeater children use ->child access.
-8. Image fields: write a public URL in data and alt in field_meta.{field}.alt, or write {url, alt}. Render <img src="{$image->url ?? $image}" alt="{$image->alt ?? ''}">. Nested images inside object/array children must be {url, alt} objects.
-9. Link fields are objects: {$link->url}, {$link->text}, {$link->target}. HTML/rich text uses {$body|noescape}. Do not put class="" and n:class on the same element.
-10. field_meta is a flat map keyed by top-level field name; each value may only hold element, classes (string array), alt, title, src, target, text. It carries no per-item data: link, link_array, text_array and image_array take no field_meta — put per-entry target/alt/text inside the field value objects instead ({url, text, target} or {url, alt}).
-11. Create and validate components sequentially. Correct errors until valid=true before placement.
+7. Alpine.js (deferred, auto-starting) and SAL.js (data-sal scroll-reveal) are already loaded globally on every page by the theme, before any component renders. Use x-data/x-on/x-show/x-for for interactivity and data-sal/data-sal-duration/data-sal-delay/data-sal-easing for scroll animation directly in custom_html. Do not add another <script src> tag for either library.
+8. Prefer Alpine x-data over an inline <script> block for behavior: component scss is auto-scoped per placement ([data-component]/[data-version]), but a hand-written <script> is not, so placing the same component twice on one page risks duplicate IDs, duplicate event listeners, and global variable collisions. Alpine state is scoped to the element it is declared on, so it does not have this problem. An inline <script> is not rejected by validation, but avoid it unless the behavior is impossible in Alpine.
+9. Use semantic field types from field_type_contract. Latte object and repeater children use ->child access.
+10. Image fields: write a public URL in data and alt in field_meta.{field}.alt, or write {url, alt}. Render <img src="{$image->url ?? $image}" alt="{$image->alt ?? ''}">. Nested images inside object/array children must be {url, alt} objects.
+11. Link fields are objects: {$link->url}, {$link->text}, {$link->target}. HTML/rich text uses {$body|noescape}. Do not put class="" and n:class on the same element.
+12. field_meta is a flat map keyed by top-level field name; each value may only hold element, classes (string array), alt, title, src, target, text. It carries no per-item data: link, link_array, text_array and image_array take no field_meta — put per-entry target/alt/text inside the field value objects instead ({url, text, target} or {url, alt}).
+13. Create and validate components sequentially. Correct errors until valid=true before placement.
 
 ## Tools
 
@@ -332,10 +334,18 @@ Render ecommerce, listing, course, taxonomy, archive, or custom-order runtime co
 6. For sign-in, registration, and account CTAs, link to /cp/login, /cp/register, /cp/profile, /cp/courses, /cp/custom-orders, or /cp/inquiries. Never build a custom login or registration form.
 7. For ecommerce actions, use the documented <checkout-product-link> and <add-product-to-cart> elements with the numeric product id and required product attributes. On Tailwind sites call {sdpInjectProductsScript} once before using them; do not recreate checkout URLs or cart JavaScript.
 8. The Tailwind products browser inserts utility-class markup after page load, while the builder generates CSS from static Latte source. Choose the styling approach that best fits the design: add component-scoped plain SCSS for the semantic .sdp-products-browser__* hooks, or include the tailwind_products_browser_skeleton example as a hidden static class-scan skeleton. Do not rely on runtime-only utility tokens being discovered. Validate, publish, and inspect the live desktop and mobile page after products load.
-9. For filterable listing catalogs use <sdp-listings-browser>; on Tailwind call {sdpInjectListingsScript} once. For fixed-count listing sections use {sdpGetListings N} cards, not the browser. Use {sdpGetListingsSummary} for counts. Location archives are locations/{location_slug} with {sdpGetLocation}.
-10. Use distinct archive prefixes, the documented heading getter, and taxonomy list directives. Avoid conflicting dynamic route parameters.
-11. Use {sdpInjectCustomFormScript} for custom-order forms. Obtain type slug, field slugs, and pricing item ids from Custom Forms MCP (/mcp/custom-forms on the themes host). Never invent them.
-12. After submit, reveal the hidden success element selected by the first tag argument, set data-success-redirect="/thank-you", or set data-success-redirect="view-order" to open /cp/view-custom-order/{unique_id}. Redirect takes precedence. Optional {unique_id} is replaced on custom paths.
+9. For a fully custom product browsing UI instead of <sdp-products-browser>, call GET /api/products/catalog directly with Alpine x-data (or plain fetch). Supported query params: category_scope, collection/collection_scope, product_type_scope (aliases product_type_slug/product_type/product_type_id/type_slug/type/type_id), brand (or vendor), search, min_price, max_price, custom_fields, page, per_page (1-48, default 12). Response is { products: { data, current_page, last_page, per_page, total }, filters: { categories, brands, custom_fields, price: {min, max} } }. Build filters, grid, and pagination from this response; do not invent additional query params or response fields.
+10. category_scope/collection_scope/product_type_scope are a fixed scope: they narrow both the product results and the filters object itself (so a component scoped to one category only ever lists that category's brands/custom fields/price range). Use them only for a component intentionally locked to one category/collection/type by the website owner. For a live, user-clickable category filter in a custom browser, send category (not category_scope) — it narrows only the product results, leaving filters.categories/brands/custom_fields/price stable so the visitor can still switch to a different category afterward.
+11. Choose <sdp-products-browser> for a fast, consistent, pre-built browsing UI; choose a custom Alpine build against /api/products/catalog only when the design needs a bespoke filter/grid/pagination layout the canned element cannot produce.
+12. A custom product browser still needs {sdpInjectProductsScript} once per page for window.SdpCart (getCart, addProduct, removeProduct, updateQuantity, clearCart; fires a sdp-cart-updated window event on every mutation) even when <sdp-products-browser> itself is not used. Reuse the documented <checkout-product-link> and <add-product-to-cart> elements for simple add/checkout actions inside the custom UI instead of writing new cart or checkout JavaScript.
+13. {sdpInjectProductsScript} already auto-injects a floating cart button and drawer (hidden while the cart is empty), driven by CartUITw.toggleDrawer() on Tailwind sites or CartUI.toggleDrawer() on non-Tailwind sites. For a header/nav cart icon instead of that floating button, do not build a second drawer or read localStorage directly: seed the badge count from window.SdpCart.getCart() (sum each line's quantity), keep it live with window.addEventListener('sdp-cart-updated', e => ...) (e.detail is the updated cart array), and call CartUITw.toggleDrawer() / CartUI.toggleDrawer() on click to open the drawer the injected script already built. See header_cart_button_skeleton.
+14. Build the custom browser's filter panel dynamically from the live filters object on every /api/products/catalog response — render category and brand options from filters.categories/filters.brands (already full {name, slug, ...} objects), render each custom field from filters.custom_fields (each is {id, label, slug, type, options}) as a single-select <select> when type is select or as checkboxes when type is multi_select, and render a price range from filters.price.{min,max}. Do not hardcode a fixed filter list in the component; the filters returned are already scoped to the current category/collection/product_type. The endpoint does not return product_type or variant options, so do not render a product-type or variant filter from this endpoint.
+15. Send a custom-field filter as custom_fields[slug]=value for a select field, or custom_fields[slug][]=value1&custom_fields[slug][]=value2 (repeat the []= param per checked box) for a multi_select field; a product matches if its stored value equals or contains any one of the given values.
+16. Components that need scroll-reveal or interactive behavior (filters, tabs, carousels) can use Alpine.js and SAL.js directly — see component.create for the global-availability and scoping rules; do not inject another copy of either library.
+17. For filterable listing catalogs use <sdp-listings-browser>; on Tailwind call {sdpInjectListingsScript} once. For fixed-count listing sections use {sdpGetListings N} cards, not the browser. Use {sdpGetListingsSummary} for counts. Location archives are locations/{location_slug} with {sdpGetLocation}.
+18. Use distinct archive prefixes, the documented heading getter, and taxonomy list directives. Avoid conflicting dynamic route parameters.
+19. Use {sdpInjectCustomFormScript} for custom-order forms. Obtain type slug, field slugs, and pricing item ids from Custom Forms MCP (/mcp/custom-forms on the themes host). Never invent them.
+20. After submit, reveal the hidden success element selected by the first tag argument, set data-success-redirect="/thank-you", or set data-success-redirect="view-order" to open /cp/view-custom-order/{unique_id}. Redirect takes precedence. Optional {unique_id} is replaced on custom paths.
 
 ## Examples
 
@@ -412,6 +422,165 @@ Key: `tailwind_products_browser_skeleton`
     url-prefix="{$component->url_prefix ?? 'products'}"
     auto-load-more="{$component->auto_load_more ?? 'true'}"
 ></sdp-products-browser>
+```
+
+### Custom Alpine product browser against /api/products/catalog
+
+Key: `custom_alpine_products_browser_skeleton`
+
+```latte
+{sdpInjectProductsScript}
+<div
+    class="container mx-auto px-4"
+    x-data="{
+        page: 1,
+        perPage: {$component->per_page ?? 12},
+        selected: { category: '{$component->category ?? ''}', brand: '', search: '', min_price: '', max_price: '', custom: {} },
+        products: [],
+        pagination: null,
+        filterOptions: { categories: [], brands: [], custom_fields: [], price: { min: 0, max: 0 } },
+        loading: false,
+        error: null,
+        async load() {
+            this.loading = true;
+            this.error = null;
+            try {
+                const params = new URLSearchParams({ page: this.page, per_page: this.perPage });
+                if (this.selected.category) params.set('category', this.selected.category);
+                if (this.selected.brand) params.set('brand', this.selected.brand);
+                if (this.selected.search) params.set('search', this.selected.search);
+                if (this.selected.min_price) params.set('min_price', this.selected.min_price);
+                if (this.selected.max_price) params.set('max_price', this.selected.max_price);
+                Object.entries(this.selected.custom).forEach(([slug, value]) => {
+                    if (Array.isArray(value)) {
+                        value.forEach((v) => { if (v) params.append('custom_fields[' + slug + '][]', v); });
+                    } else if (value) {
+                        params.set('custom_fields[' + slug + ']', value);
+                    }
+                });
+                const res = await fetch('/api/products/catalog?' + params.toString());
+                if (!res.ok) throw new Error('request_failed');
+                const json = await res.json();
+                this.products = this.page > 1 ? this.products.concat(json.products.data) : json.products.data;
+                this.pagination = json.products;
+                this.filterOptions = json.filters;
+                (json.filters.custom_fields || []).forEach((field) => {
+                    if (!(field.slug in this.selected.custom)) {
+                        this.selected.custom[field.slug] = field.type === 'multi_select' ? [] : '';
+                    }
+                });
+            } catch (e) {
+                this.error = 'Unable to load products.';
+            } finally {
+                this.loading = false;
+            }
+        },
+        applyFilters() {
+            this.page = 1;
+            this.load();
+        },
+        addToCart(product) {
+            window.SdpCart.addProduct(product);
+        },
+    }"
+    x-init="load()"
+>
+    <div class="flex flex-col lg:flex-row gap-6">
+        <aside class="w-full lg:w-64 flex-shrink-0">
+            <div class="bg-white rounded-2xl shadow-sm p-4 space-y-4">
+                <input type="text" placeholder="Search" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" x-model="selected.search" @change="applyFilters()">
+                <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white" x-model="selected.category" @change="applyFilters()">
+                    <option value="">All categories</option>
+                    <template x-for="cat in filterOptions.categories" :key="cat.id">
+                        <option :value="cat.slug" x-text="cat.name"></option>
+                    </template>
+                </select>
+                <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white" x-model="selected.brand" @change="applyFilters()">
+                    <option value="">All brands</option>
+                    <template x-for="brand in filterOptions.brands" :key="brand.id">
+                        <option :value="brand.slug" x-text="brand.name"></option>
+                    </template>
+                </select>
+                <template x-for="field in filterOptions.custom_fields" :key="field.id">
+                    <div>
+                        <template x-if="field.type === 'select'">
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white" x-model="selected.custom[field.slug]" @change="applyFilters()">
+                                <option value="" x-text="field.label"></option>
+                                <template x-for="opt in field.options" :key="opt.value ?? opt">
+                                    <option :value="opt.value ?? opt" x-text="opt.label ?? opt"></option>
+                                </template>
+                            </select>
+                        </template>
+                        <template x-if="field.type === 'multi_select'">
+                            <div>
+                                <span class="block text-xs font-semibold text-gray-600 mb-1" x-text="field.label"></span>
+                                <template x-for="opt in field.options" :key="opt.value ?? opt">
+                                    <label class="flex items-center gap-2 text-sm">
+                                        <input type="checkbox" :value="opt.value ?? opt" x-model="selected.custom[field.slug]" @change="applyFilters()">
+                                        <span x-text="opt.label ?? opt"></span>
+                                    </label>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+                <div class="flex gap-2" x-show="filterOptions.price.max > 0">
+                    <input type="number" :placeholder="filterOptions.price.min" class="w-1/2 border border-gray-300 rounded-lg px-3 py-2 text-sm" x-model="selected.min_price" @change="applyFilters()">
+                    <input type="number" :placeholder="filterOptions.price.max" class="w-1/2 border border-gray-300 rounded-lg px-3 py-2 text-sm" x-model="selected.max_price" @change="applyFilters()">
+                </div>
+            </div>
+        </aside>
+        <main class="flex-1 min-w-0">
+            <p x-show="loading">Loading products...</p>
+            <p x-show="error" x-text="error"></p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" x-show="!loading">
+                <template x-for="product in products" :key="product.id">
+                    <article class="bg-white rounded-2xl shadow-sm h-full flex flex-col" data-sal="fade" data-sal-duration="400">
+                        <img :src="product.image" :alt="product.name" class="w-full aspect-square object-cover rounded-t-2xl">
+                        <div class="p-4 flex flex-col flex-1">
+                            <h6 class="font-bold mb-1 truncate text-sm" x-text="product.name"></h6>
+                            <span class="font-bold" x-text="product.price"></span>
+                            <button class="rounded-full py-1 px-3 text-sm mt-auto" @click="addToCart(product)">Add</button>
+                        </div>
+                    </article>
+                </template>
+            </div>
+            <div class="text-center mt-6" x-show="pagination && pagination.current_page < pagination.last_page">
+                <button class="rounded-full py-2 px-6" @click="page++; load()">Load More</button>
+            </div>
+        </main>
+    </div>
+</div>
+```
+
+### Header cart button that opens the existing drawer
+
+Key: `header_cart_button_skeleton`
+
+```latte
+{* Place inside the header. {sdpInjectProductsScript} only needs to run once per page (it also auto-injects a separate floating cart button/drawer; this header icon reuses the same SdpCart state and drawer instead of duplicating them). *}
+{sdpInjectProductsScript}
+<button
+    type="button"
+    class="relative inline-flex items-center justify-center"
+    aria-label="Open cart"
+    x-data="{
+        count: (window.SdpCart.getCart() || []).reduce((n, item) => n + (item.quantity || 0), 0),
+        init() {
+            window.addEventListener('sdp-cart-updated', (e) => {
+                this.count = (e.detail || []).reduce((n, item) => n + (item.quantity || 0), 0);
+            });
+        },
+    }"
+    @click="CartUITw.toggleDrawer()"
+>
+    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293A1 1 0 005 17h12M9 21a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span
+        class="absolute -top-1 -right-1 min-w-[1.1rem] h-[1.1rem] rounded-full bg-red-600 text-white text-[10px] leading-[1.1rem] text-center px-1"
+        x-show="count > 0"
+        x-text="count"
+    ></span>
+</button>
 ```
 
 ## Tools

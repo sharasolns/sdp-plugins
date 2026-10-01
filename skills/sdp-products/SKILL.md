@@ -18,3 +18,9 @@ Import a public image URL or complete a Cloudflare direct upload. Never send bas
 ## Storefront
 
 Website Builder only renders `{sdpGetProducts}` / `{sdpGetProduct}` pages. Link items to `/products/{$product->slug}`.
+
+## Instruction reference
+
+Read [references/instructions.md](references/instructions.md) for source-exported workflows and examples. Refresh the hosted instruction resource before mutations; it takes precedence over this bundled snapshot.
+
+For brand, product category, product type, collection, or variant images, use `import_catalog_image_url` or the catalog direct-upload flow, then `attach_catalog_image` with the returned `file_id`. Upload completion alone does not attach the image.
