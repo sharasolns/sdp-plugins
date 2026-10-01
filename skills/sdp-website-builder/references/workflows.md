@@ -6,7 +6,7 @@ Generated from `WebsiteBuilderInstructionCatalog`. Do not edit by hand.
 
 Create a website and establish its reusable visual foundation.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/website.create`
 
 ## Workflow
@@ -27,7 +27,7 @@ Create a website and establish its reusable visual foundation.
 
 Read or partially update website identity and media settings.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/website.settings`
 
 ## Workflow
@@ -47,7 +47,7 @@ Read or partially update website identity and media settings.
 
 Connect a custom domain or free sm.ke subdomain and verify DNS.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/website.domain`
 
 ## Workflow
@@ -67,7 +67,7 @@ Connect a custom domain or free sm.ke subdomain and verify DNS.
 
 Create one reusable Latte component with the correct schema, source, and styling.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/component.create`
 
 ## Style ownership
@@ -104,7 +104,7 @@ Create one reusable Latte component with the correct schema, source, and styling
 
 Safely update component Latte, SCSS, data, or a page-local placement.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/component.update`
 
 ## Workflow
@@ -130,7 +130,7 @@ Safely update component Latte, SCSS, data, or a page-local placement.
 
 Add, override, soft-remove, or restore fields on one component instance.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/component.fields`
 
 ## Workflow
@@ -154,7 +154,7 @@ Add, override, soft-remove, or restore fields on one component instance.
 
 Switch the reusable version behind an existing page placement without deleting it.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/component.version`
 
 ## Workflow
@@ -175,7 +175,7 @@ Switch the reusable version behind an existing page placement without deleting i
 
 Compose a page from reusable component placements while preserving template ownership.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/page.compose`
 
 ## Workflow
@@ -230,7 +230,7 @@ Compose a page from reusable component placements while preserving template owne
 
 Create or update the minimal template family and shared shell.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/template.build`
 
 ## Workflow
@@ -255,7 +255,7 @@ Create or update the minimal template family and shared shell.
 
 Safely update global CSS, header scripts, footer scripts, or robots.txt.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/global_code.update`
 
 ## Workflow
@@ -278,7 +278,7 @@ Safely update global CSS, header scripts, footer scripts, or robots.txt.
 
 Import public media or upload a local image/video without placing binary data in MCP calls.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/media.upload`
 
 ## Workflow
@@ -301,7 +301,7 @@ Import public media or upload a local image/video without placing binary data in
 
 Render post lists, categories, or one post with supported Latte runtime data.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/runtime.posts`
 
 ## Workflow
@@ -321,7 +321,7 @@ Render post lists, categories, or one post with supported Latte runtime data.
 
 Render ecommerce, listing, course, taxonomy, archive, or custom-order runtime content.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/runtime.catalog`
 
 ## Workflow
@@ -594,7 +594,7 @@ Key: `header_cart_button_skeleton`
 
 Review lifecycle state and publish website, page, or post changes safely.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/content.publish`
 
 ## Workflow
@@ -618,12 +618,12 @@ Review lifecycle state and publish website, page, or post changes safely.
 
 Read stored Google Search Console analysis without triggering refreshes.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/seo.read`
 
 ## Workflow
 
-1. These tools live on /mcp/website-builder: get_website_seo_overview, list_website_seo_queries, get_website_seo_query, list_website_seo_pages, get_website_seo_page.
+1. These tools live on /mcp/website-manager: get_website_seo_overview, list_website_seo_queries, get_website_seo_query, list_website_seo_pages, get_website_seo_page.
 2. Start with get_website_seo_overview, discover rows with list_website_seo_queries or list_website_seo_pages, then drill into one exact query or page URL.
 3. These read-only tools do not return AI Visibility data and do not refresh Search Console.
 
@@ -639,12 +639,12 @@ Read stored Google Search Console analysis without triggering refreshes.
 
 Create and manage content plans, assignments, categories, groups, and reminders.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/planner.manage`
 
 ## Workflow
 
-1. These tools live on /mcp/website-builder: list_content_plans, get_content_plan, create_content_plan, update_content_plan, delete_content_plan, change_content_plan_status, convert_content_plan, list_content_plan_groups, create_content_plan_group, update_content_plan_group, delete_content_plan_group, list_planner_assignees, get_planner_reminder_settings, update_planner_reminder_settings.
+1. These tools live on /mcp/website-manager: list_content_plans, get_content_plan, create_content_plan, update_content_plan, delete_content_plan, change_content_plan_status, convert_content_plan, list_content_plan_groups, create_content_plan_group, update_content_plan_group, delete_content_plan_group, list_planner_assignees, get_planner_reminder_settings, update_planner_reminder_settings.
 2. Use list_categories and list_planner_assignees before assigning category_id or assignee_ids.
 3. Use change_content_plan_status to move an idea to planned when it is approved for the calendar. Setting planned_date alone does not change its status.
 4. published is not a manual status. Publishing the linked page or post automatically sets the plan to published with published_at; unpublishing it moves the plan back to drafted.
@@ -666,7 +666,7 @@ Create and manage content plans, assignments, categories, groups, and reminders.
 
 Design a reusable SDP image template, then render featured/OG images from it.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/image_template.build`
 
 ## Workflow
@@ -691,7 +691,7 @@ Design a reusable SDP image template, then render featured/OG images from it.
 
 Select the company membership used by subsequent MCP and dashboard requests.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/company.switch`
 
 ## Workflow

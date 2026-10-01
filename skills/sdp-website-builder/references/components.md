@@ -6,7 +6,7 @@ Generated from `WebsiteBuilderInstructionCatalog` component skills. Do not edit 
 
 Create one reusable Latte component with the correct schema, source, and styling.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/component.create`
 
 ## Style ownership
@@ -43,7 +43,7 @@ Create one reusable Latte component with the correct schema, source, and styling
 
 Safely update component Latte, SCSS, data, or a page-local placement.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/component.update`
 
 ## Workflow
@@ -69,7 +69,7 @@ Safely update component Latte, SCSS, data, or a page-local placement.
 
 Add, override, soft-remove, or restore fields on one component instance.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/component.fields`
 
 ## Workflow
@@ -93,7 +93,7 @@ Add, override, soft-remove, or restore fields on one component instance.
 
 Switch the reusable version behind an existing page placement without deleting it.
 
-- Server: `website-builder` (`/mcp/website-builder`)
+- Server: `website-manager` (`/mcp/website-manager`)
 - Resource: `sdp://instructions/component.version`
 
 ## Workflow

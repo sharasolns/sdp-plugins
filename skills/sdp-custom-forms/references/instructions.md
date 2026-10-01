@@ -4,7 +4,7 @@ This server administers custom order types used by public website forms. It does
 
 Except for `list_companies`, every tool requires an explicit numeric `company_id`. Never infer a company from a previous call.
 
-Website Builder MCP (`/mcp/website-builder` on the backend) renders the public form. Pass the type `slug` and pricing-item `id` values returned here into that form. Do not invent them.
+Website Builder MCP (`/mcp/website-manager` on the backend) renders the public form. Pass the type `slug` and pricing-item `id` values returned here into that form. Do not invent them.
 
 ## Discover and read
 

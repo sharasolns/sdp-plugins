@@ -69,7 +69,7 @@ Reload Cursor or Grok Bot. Complete the SDP OAuth browser sign-in when each MCP 
 Add these Streamable HTTP URLs as remote MCP connectors:
 
 ```text
-https://sdp-api.sdp-platform.com/mcp/website-builder
+https://sdp-api.sdp-platform.com/mcp/website-manager
 https://themes-production.sdp-platform.com/mcp/products
 https://themes-production.sdp-platform.com/mcp/listings
 https://themes-production.sdp-platform.com/mcp/courses
@@ -108,4 +108,6 @@ python3 scripts/sync_instructions.py --check
 python3 scripts/validate_repo.py
 ```
 
-Use `--backend PATH` and `--themes PATH` for other checkout locations. Website Builder files are copied directly from `WebsiteBuilderInstructionDocs`; catalog references are extracted from their MCP resource sources. Update the concise catalog skills when behavior changes. Bundled references are source snapshots; authenticated hosted instruction resources remain authoritative.
+Use `--backend PATH` and `--themes PATH` for other checkout locations. Website Builder workflows are exported from `WebsiteBuilderInstructionDocs` and adapted to Website Manager routing; catalog references are extracted from their MCP resource sources. Update the concise catalog skills when behavior changes. Bundled references are source snapshots; authenticated hosted instruction resources remain authoritative.
+
+The `sdp-website-builder` skill connects to `sdp-website-manager`. Use directly listed tools or discover other tools with `search_tools` and run them with `execute_tools` using the returned schemas.

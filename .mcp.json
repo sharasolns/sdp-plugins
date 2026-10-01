@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "sdp-website-builder": {
+    "sdp-website-manager": {
       "type": "http",
-      "url": "https://sdp-api.sdp-platform.com/mcp/website-builder"
+      "url": "https://sdp-api.sdp-platform.com/mcp/website-manager"
     },
     "sdp-products": {
       "type": "http",

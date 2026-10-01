@@ -5,7 +5,7 @@ Maintain this repository as one SDP plugin with native Codex, Claude Code, and C
 ## Sources of truth
 
 1. Hosted SDP MCP runtimes for tool names, OAuth, and instruction resources.
-2. `sdp-cms-backend` `WebsiteBuilderInstructionCatalog` for website-builder skill prose. Copy exported files; do not rewrite them here.
+2. `sdp-cms-backend` `WebsiteBuilderInstructionCatalog` for website-builder skill prose. Export catalog workflows via `scripts/sync_instructions.py`; its explicit adapter changes legacy routing to Website Manager and adds tool-search guidance. Do not rewrite workflow content here.
 3. `sdp://products/instructions`, `sdp://listings/instructions`, `sdp://courses/instructions`, and `sdp://custom-forms/instructions` for catalog workflows.
 
 When sources disagree, verify the hosted interface and document the discrepancy.

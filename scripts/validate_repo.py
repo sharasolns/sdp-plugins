@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ERRORS: list[str] = []
 
 MCP_SERVERS = {
-    "sdp-website-builder": "https://sdp-api.sdp-platform.com/mcp/website-builder",
+    "sdp-website-manager": "https://sdp-api.sdp-platform.com/mcp/website-manager",
     "sdp-products": "https://themes-production.sdp-platform.com/mcp/products",
     "sdp-listings": "https://themes-production.sdp-platform.com/mcp/listings",
     "sdp-courses": "https://themes-production.sdp-platform.com/mcp/courses",
@@ -87,7 +87,7 @@ for surface, manifest in manifests.items():
 
 skills_root = ROOT / "skills"
 skill_dirs = sorted(path for path in skills_root.iterdir() if path.is_dir())
-expected_skills = set(MCP_SERVERS)
+expected_skills = (set(MCP_SERVERS) - {"sdp-website-manager"}) | {"sdp-website-builder"}
 found_skills = {path.name for path in skill_dirs}
 if found_skills != expected_skills:
     error(f"skills directories must be {sorted(expected_skills)}, got {sorted(found_skills)}")
@@ -129,7 +129,7 @@ for skill_dir in skill_dirs:
     openai = openai_file.read_text(encoding="utf-8")
     if f"${skill_dir.name}" not in openai:
         error(f"{skill_dir.name}: default_prompt must mention ${skill_dir.name}")
-    expected_url = MCP_SERVERS.get(skill_dir.name)
+    expected_url = MCP_SERVERS.get("sdp-website-manager" if skill_dir.name == "sdp-website-builder" else skill_dir.name)
     if expected_url and expected_url not in openai:
         error(f"{skill_dir.name}: missing hosted MCP URL {expected_url}")
 

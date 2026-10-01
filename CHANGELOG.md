@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.10 - 2026-10-01
+
+- Switch the hosted website connection and skill dependency to Website Manager MCP.
+- Adapt generated routing to `/mcp/website-manager` and document `search_tools` / `execute_tools` discovery. Keep the existing website-builder skill name.
+
 ## 0.1.9 - 2026-10-01
 
 - Regenerate Website Builder instructions from the current backend catalog.

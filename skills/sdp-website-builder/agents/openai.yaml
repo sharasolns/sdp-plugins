@@ -1,13 +1,13 @@
 interface:
-  display_name: "SDP Website Builder"
+  display_name: "SDP Website Manager"
   short_description: "Build and publish SDP websites"
   default_prompt: "Use $sdp-website-builder to inspect or compose an SDP website safely, defining editable fields and referencing them in every new component."
 dependencies:
   tools:
     - type: "mcp"
-      value: "sdp-website-builder"
-      description: "SDP Website Builder hosted MCP server"
+      value: "sdp-website-manager"
+      description: "SDP Website Manager hosted MCP server"
       transport: "streamable_http"
-      url: "https://sdp-api.sdp-platform.com/mcp/website-builder"
+      url: "https://sdp-api.sdp-platform.com/mcp/website-manager"
 policy:
   allow_implicit_invocation: true
