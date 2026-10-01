@@ -35,7 +35,7 @@ To verify a connection, call `list_companies` on the relevant server. A successf
 
 ## 3. Establish the company context
 
-Catalog data tools require an explicit numeric `company_id`; discovery and dashboard tools may omit it according to their schemas. Website Builder uses company selection via `set_current_company` and website targeting according to the selected workflow.
+Catalog data tools require an explicit numeric `company_id`; discovery and dashboard tools may omit it according to their schemas. Website Builder uses company selection via `switch_company` and website targeting according to the selected workflow.
 
 Call `list_companies` first and confirm which company the user means before any read or write. If they own exactly one company, use it and say which one you picked. If they own several, ask. Never guess a `company_id`, and never carry one over from an unrelated conversation.
 
