@@ -20,7 +20,9 @@ Use `import_course_cover_url` for a public image. Never send base64 through MCP.
 
 Use `create_course_video_upload`, POST the raw file once as multipart field `file`, then poll `complete_course_video_upload`. This direct flow supports files under 200 MB.
 
-For advanced courses, create chapters and lessons, then use `set_course_lesson_html`, a video upload with `lesson_id`, `create_course_lesson_pdf_upload`, or `replace_course_lesson_quiz`. Reordering requires every chapter and lesson exactly once.
+For advanced courses, create chapters and lessons, then add content with `set_course_lesson_html`, a video upload with `lesson_id`, `create_course_lesson_pdf_upload`, or `replace_course_lesson_quiz`. A lesson can hold videos and PDFs together, and learners see all of them. Each upload sets the lesson's `item_type` (its label and icon) to the newest file; change it with `update_course_lesson` `item_type` (`video` or `pdf`). Reordering requires every chapter and lesson exactly once.
+
+Courses have `disable_file_downloads`, on by default: learners can view lesson PDFs but get no download button or download link. Turn it off with `update_course` only when the user wants learners to download files.
 
 `replace_course_lesson_quiz` and `replace_course_final_test` are atomic. Each question requires at least two choices and one ID in `correct_choice_ids`.
 
